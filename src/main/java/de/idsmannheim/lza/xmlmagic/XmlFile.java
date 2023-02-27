@@ -20,7 +20,7 @@ import org.jdom2.Namespace;
  * Class providing information about a loaded generic XmlFile
  * @author Herbert Lange <lange@ids-mannheim.de>
  */
-public class XmlFile {
+public abstract class XmlFile {
 
     Document xmlDoc;
     
@@ -83,4 +83,15 @@ public class XmlFile {
         return schemas;
     }
     
+    /**
+     * Checks if the format matches the data based on the information contained
+     * @return if the format matches
+     */
+    public abstract boolean matches();
+    
+    /**
+     * Returns the mime-type for the XML data given
+     * @return the most specific mime type
+     */
+    public abstract MimeType getMimeType();
 }
