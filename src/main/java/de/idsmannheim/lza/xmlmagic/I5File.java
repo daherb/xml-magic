@@ -35,7 +35,7 @@ public class I5File extends XmlFile {
     @Override
     public MimeType getMimeType() {
         HashMap<String, String> parameters = new HashMap<>();
-        parameters.put("dialect", "i5");
+        parameters.put("dialect", "ids-i5");
         Element root = getRootElement();
         String version = root.getAttributeValue("version");
         if (version != null)
