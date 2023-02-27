@@ -4,10 +4,13 @@ import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.util.Set;
 import java.util.logging.Logger;
 import org.jdom2.DocType;
+import org.jdom2.Document;
 import org.jdom2.JDOMException;
 import org.jdom2.input.SAXBuilder;
+import org.reflections.Reflections;
 
 /**
  * Hello world!
@@ -23,14 +26,24 @@ public class App
         }
         else {
             URI input = new URI(args[0]);
-            CmdiFile info = new CmdiFile(new SAXBuilder().build(input.toURL()));
-            LOG.info(info.getDoctype().map(DocType::getElementName).toString());
-            LOG.info(info.getRootElement().toString());
-            LOG.info(info.getRootVersion().toString());
-            LOG.info(info.getRootNamespaces().toString());
-            LOG.info(info.getRootSchemas().toString());
-            if (info.isCmdiFile()) {
-                LOG.info(info.getCmdiComponentElements().toString());
+            Document document = new SAXBuilder().build(input.toURL());
+            Reflections reflections = new Reflections(App.class.getPackage().getName());
+            for (Class c : reflections.getSubTypesOf(XmlFile.class)) {
+                try {
+                    LOG.info(c.getName());
+                    XmlFile o = (XmlFile) c.getConstructor(Document.class).newInstance(document);
+                    if (o.matches()) {
+                        LOG.info("Doctype: " + o.getDoctype().map(DocType::getElementName).toString());
+                        LOG.info("Root element: " + o.getRootElement().toString());
+                        LOG.info("Root version: " + o.getRootVersion().toString());
+                        LOG.info("Root namespace: " + o.getRootNamespaces().toString());
+                        LOG.info("Root schemas: " + o.getRootSchemas().toString());
+                        LOG.info("MIME type: " + o.getMimeType().toString());
+                    }
+                }
+                catch (Exception e) {
+                    
+                }
             }
         }
     }
