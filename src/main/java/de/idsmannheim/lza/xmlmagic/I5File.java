@@ -24,7 +24,7 @@ public class I5File extends XmlFile {
      */
     public boolean isTeiI5() {
         return getDoctype().isPresent() && 
-                getDoctype().get().equals("idsCorpus") &&
+                getDoctype().get().getElementName().equals("idsCorpus") &&
                 getRootElement().getName().equals("idsCorpus");
     }
     @Override
