@@ -89,9 +89,14 @@ public class CmdiFile extends XmlFile {
     @Override
     public MimeType getMimeType() {
         HashMap<String,String> parameters = new HashMap<>();
+        // Add profiles
         for (String profile : getCmdiProfiles().keySet()) {
             parameters.put("profile", profile);
         }
+        String version = getRootElement().getAttributeValue("CMDVersion");
+        // Add version
+        if (version != null)
+            parameters.put("version", version);
         return new MimeType("application","x-cmdi","xml").addParameters(parameters);
     }
     
