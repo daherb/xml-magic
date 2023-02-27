@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.function.Predicate;
 import org.jdom2.Document;
 import org.jdom2.Element;
 import org.jdom2.Namespace;
@@ -34,17 +35,16 @@ public class CmdiFile extends XmlFile {
         List<Element> componentElements = new ArrayList<>();
         Map<String,String> rootNamespaces = getRootNamespaces();
         List<Namespace> namespaces = rootNamespaces.keySet().stream()
+                .filter(Predicate.not(String::isBlank))
                 .map((prefix) -> Namespace.getNamespace(prefix, rootNamespaces.get(prefix)))
                 .toList();
-        for (String prefix : rootNamespaces.keySet()) {
-            if (!prefix.isBlank()) {
-                componentElements.addAll(
-                        XPathFactory.instance().compile("//"+ prefix + ":Components/child::node()",
-                                new ElementFilter(),
-                                new HashMap<>(),
-                                namespaces).evaluate(xmlDoc)
-                );
-            }
+        for (Namespace ns : namespaces) {
+            componentElements.addAll(
+                    XPathFactory.instance().compile("//"+ ns.getPrefix() + ":Components/child::node()",
+                            new ElementFilter(),
+                            new HashMap<>(),
+                            namespaces).evaluate(xmlDoc)
+            );
         }
         return componentElements;
     }
