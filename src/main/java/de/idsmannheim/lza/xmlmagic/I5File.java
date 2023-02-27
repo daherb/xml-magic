@@ -5,6 +5,7 @@
 package de.idsmannheim.lza.xmlmagic;
 
 import java.util.HashMap;
+import org.jdom2.Document;
 import org.jdom2.Element;
 
 /**
@@ -12,6 +13,10 @@ import org.jdom2.Element;
  * @author Herbert Lange <lange@ids-mannheim.de>
  */
 public class I5File extends XmlFile {
+
+    public I5File(Document d) {
+        super(d);
+    }
 
     /**
      * Checks if it is a valid I5 file
