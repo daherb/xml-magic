@@ -26,8 +26,8 @@ public class CmdiFile extends XmlFile {
     
     public boolean isCmdiFile() {
         return getRootElement().getName().equals("CMD") &&
-                getRootSchemas().contains("http://www.clarin.eu/cmd/1") &&
-                getRootNamespaces().containsValue("http://www.clarin.eu/cmd/1");
+                getRootSchemas().stream().anyMatch((uri) -> uri.startsWith("http://www.clarin.eu/cmd/")) &&
+                getRootNamespaces().values().parallelStream().anyMatch((uri) -> uri.startsWith("http://www.clarin.eu/cmd/"));
     }
     
     public List<Element> getCmdiComponentElements() {
