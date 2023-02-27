@@ -23,12 +23,15 @@ public class App
         }
         else {
             URI input = new URI(args[0]);
-            XmlFileInfo info = new XmlFileInfo(new SAXBuilder().build(input.toURL()));
+            CmdiFile info = new CmdiFile(new SAXBuilder().build(input.toURL()));
             LOG.info(info.getDoctype().map(DocType::getElementName).toString());
             LOG.info(info.getRootElement().toString());
             LOG.info(info.getRootVersion().toString());
             LOG.info(info.getRootNamespaces().toString());
             LOG.info(info.getRootSchemas().toString());
+            if (info.isCmdiFile()) {
+                LOG.info(info.getCmdiComponentElements().toString());
+            }
         }
     }
     private static final Logger LOG = Logger.getLogger(App.class.getName());
