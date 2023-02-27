@@ -65,6 +65,22 @@ public class MimeType {
         sb.append(parameters.keySet().stream().map((name) -> " ; " + name + "=" + parameters.get(name)).collect(Collectors.joining()));
         return sb.toString();
     }
+
+    public String getType() {
+        return type;
+    }
+
+    public String getSubtype() {
+        return subtype;
+    }
+
+    public Optional<String> getSuffix() {
+        return suffix;
+    }
+
+    public HashMap<String, String> getParameters() {
+        return parameters;
+    }
     
     
 }
