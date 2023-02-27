@@ -4,13 +4,11 @@
  */
 package de.idsmannheim.lza.xmlmagic;
 
-import java.net.URI;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
-import java.util.function.Function;
 import org.jdom2.Attribute;
 import org.jdom2.DocType;
 import org.jdom2.Document;
@@ -19,13 +17,14 @@ import org.jdom2.Namespace;
 
 /**
  *
+ * Class providing information about a loaded generic XmlFile
  * @author Herbert Lange <lange@ids-mannheim.de>
  */
-public class XmlFileInfo {
+public class XmlFile {
 
     Document xmlDoc;
     
-    public XmlFileInfo(Document d) {
+    public XmlFile(Document d) {
         this.xmlDoc = d;
     }
     /**
@@ -83,4 +82,5 @@ public class XmlFileInfo {
         }
         return schemas;
     }
+    
 }
