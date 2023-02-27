@@ -27,18 +27,16 @@ public class App
         else {
             URI input = new URI(args[0]);
             Document document = new SAXBuilder().build(input.toURL());
-            Reflections reflections = new Reflections(App.class.getPackage().getName());
-            for (Class c : reflections.getSubTypesOf(XmlFile.class)) {
+            XmlMagic magic = new XmlMagic(document);
+            for (XmlFile file : magic.getMatchingFormats()) {
                 try {
-                    LOG.info(c.getName());
-                    XmlFile o = (XmlFile) c.getConstructor(Document.class).newInstance(document);
-                    if (o.matches()) {
-                        LOG.info("Doctype: " + o.getDoctype().map(DocType::getElementName).toString());
-                        LOG.info("Root element: " + o.getRootElement().toString());
-                        LOG.info("Root version: " + o.getRootVersion().toString());
-                        LOG.info("Root namespace: " + o.getRootNamespaces().toString());
-                        LOG.info("Root schemas: " + o.getRootSchemas().toString());
-                        LOG.info("MIME type: " + o.getMimeType().toString());
+                    if (file.matches()) {
+                        LOG.info("Doctype: " + file.getDoctype().map(DocType::getElementName).toString());
+                        LOG.info("Root element: " + file.getRootElement().toString());
+                        LOG.info("Root version: " + file.getRootVersion().toString());
+                        LOG.info("Root namespace: " + file.getRootNamespaces().toString());
+                        LOG.info("Root schemas: " + file.getRootSchemas().toString());
+                        LOG.info("MIME type: " + file.getMimeType().toString());
                     }
                 }
                 catch (Exception e) {
