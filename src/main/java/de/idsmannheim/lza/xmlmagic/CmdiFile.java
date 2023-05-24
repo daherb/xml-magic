@@ -62,7 +62,6 @@ public class CmdiFile extends XmlFile {
                 // Try to downlaod the profile specification (not the schema -> remove potentially trailing /xsd)
                 try {
                     URL url = new URL(Pattern.compile("/xsd$").matcher(uri).replaceAll("/xml"));
-                    LOG.info(url.toString());
                     Document profile = new SAXBuilder().build(url);
                     List<Element> headers = XPathFactory.instance().compile("//Header", new ElementFilter())
                                 .evaluate(profile);
