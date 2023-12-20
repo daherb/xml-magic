@@ -59,7 +59,7 @@ public class CmdiFile extends XmlFile {
         uris.addAll(getRootNamespaces().values());
         for (String uri: uris) {
             if (uri.matches("http(s)?://catalog.clarin.eu/ds/ComponentRegistry/.*")) {
-                // Try to downlaod the profile specification (not the schema -> remove potentially trailing /xsd)
+                // Try to download the profile specification (not the schema -> remove potentially trailing /xsd)
                 try {
                     URL url = new URL(Pattern.compile("/xsd$").matcher(uri).replaceAll("/xml"));
                     Document profile = new SAXBuilder().build(url);
