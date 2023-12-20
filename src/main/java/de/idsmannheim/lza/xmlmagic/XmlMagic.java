@@ -24,7 +24,7 @@ public class XmlMagic {
     public List<XmlFile> getMatchingFormats() {
         List<XmlFile> formats = new ArrayList<>();
         Reflections reflections = new Reflections(App.class.getPackage().getName());
-        for (Class c : reflections.getSubTypesOf(XmlFile.class)) {
+        for (Class<?> c : reflections.getSubTypesOf(XmlFile.class)) {
             try {
                 XmlFile format = (XmlFile) c.getConstructor(Document.class).newInstance(document);
                 if (format.matches())
