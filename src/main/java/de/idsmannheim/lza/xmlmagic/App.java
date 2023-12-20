@@ -4,13 +4,11 @@ import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URI;
 import java.net.URISyntaxException;
-import java.util.Set;
 import java.util.logging.Logger;
 import org.jdom2.DocType;
 import org.jdom2.Document;
 import org.jdom2.JDOMException;
 import org.jdom2.input.SAXBuilder;
-import org.reflections.Reflections;
 
 /**
  * Hello world!
